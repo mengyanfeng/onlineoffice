@@ -47,7 +47,6 @@ public class OfficeApplicationTests {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/user/login",
                 String.class)).contains("Hello, world");
         */
-
         mvc.perform(MockMvcRequestBuilders.get("/user/login")).andExpect(status().isOk());
     }
 
