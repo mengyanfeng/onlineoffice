@@ -2,8 +2,10 @@ package com.online.office.controller;
 
 import com.online.office.po.User;
 import com.online.office.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -22,7 +25,9 @@ public class UserController {
     public void login(@Validated @RequestBody User user) {
         Subject currentUser = SecurityUtils.getSubject();
         if (!currentUser.isAuthenticated()) {
-            UsernamePasswordToken token = new UsernamePasswordToken();
+            UsernamePasswordToken token = new UsernamePasswordToken(
+                    user.getName(), user.getPassword());
+            log.info("User ["+currentUser.getPrincipal() +"] logged in successfully!");
             try {
                 currentUser.login( token );
                 //if no exception, that's it, we're done!
@@ -38,6 +43,12 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/hello")
+    public String hello() {
+        return "hello";
+    }
+
+    @RequiresRoles("admin")
     @RequestMapping("/getUser")
     public String getUser() {
         return userService.getUser();

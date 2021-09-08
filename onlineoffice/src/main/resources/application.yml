@@ -1,0 +1,4 @@
+shiro:
+  loginUrl: /user/login         # Todo
+  successUrl: /                 # Todo
+  unauthorizedUrl: /user/login  # Todo
