@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.online.office.dao.TbUserDao">
+
+  <select id="getOpenID" resultType="java.lang.String">
+    select open_id from tb_user where name = #{name, jdbcType=VARCHAR}
+  </select>
+
+</mapper>

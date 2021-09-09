@@ -48,8 +48,8 @@ public class OfficeApplicationTests {
     public void UserController_login() throws Exception {
 
         User user = new User();
-        user.setName("username");
-        user.setPassword("123456");
+        user.setName("张三");
+        user.setPassword("01");
         Gson gson = new Gson();
         String userJson = gson.toJson(user);
         mvc.perform(
@@ -61,12 +61,6 @@ public class OfficeApplicationTests {
 
     }
 
-    @Test
-    public void UserController_getUser() throws Exception {
-        mvc.perform(
-                MockMvcRequestBuilders.post("/user/getUser")
-        ).andExpect(status().isOk());
-    }
 
     @Test
     public void UserController_hello() throws Exception {

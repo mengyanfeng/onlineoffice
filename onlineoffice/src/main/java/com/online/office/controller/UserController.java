@@ -5,7 +5,6 @@ import com.online.office.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -27,10 +26,10 @@ public class UserController {
         if (!currentUser.isAuthenticated()) {
             UsernamePasswordToken token = new UsernamePasswordToken(
                     user.getName(), user.getPassword());
-            log.info("User ["+currentUser.getPrincipal() +"] logged in successfully!");
             try {
                 currentUser.login( token );
                 //if no exception, that's it, we're done!
+                log.info("User ["+currentUser.getPrincipal() +"] logged in successfully!");
             } catch ( UnknownAccountException uae ) {
                 //username wasn't in the system, show them an error message?
             } catch ( IncorrectCredentialsException ice ) {
@@ -48,9 +47,4 @@ public class UserController {
         return "hello";
     }
 
-    @RequiresRoles("admin")
-    @RequestMapping("/getUser")
-    public String getUser() {
-        return userService.getUser();
-    }
 }

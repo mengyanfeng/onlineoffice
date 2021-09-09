@@ -9,6 +9,6 @@ import javax.validation.constraints.Size;
 public class User {
     @NotBlank(message = "用户名不能为空")
     private String name;
-    @Size(min=6, max=32, message = "密码长度为【6-32】个字符")
+    @Size(min=2, max=32, message = "密码长度为【2-32】个字符")
     private String password;
 }
