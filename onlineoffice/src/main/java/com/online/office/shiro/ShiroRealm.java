@@ -4,6 +4,7 @@ import com.online.office.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,13 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        String open_id = (String)principalCollection.getPrimaryPrincipal();
+
+
+
+
+        AuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+
         return null;
     }
 
@@ -40,6 +48,6 @@ public class ShiroRealm extends AuthorizingRealm {
             log.info("open_id is not matcher!");
             return null;
         }
-        return new SimpleAuthenticationInfo(name, open_id, ShiroRealm.class.getName());
+        return new SimpleAuthenticationInfo(open_id, open_id, ShiroRealm.class.getName());
     }
 }

@@ -1,16 +1,35 @@
-
 server:
   port: 8080
-shiro:
-  loginUrl: /user/login         # Todo
-  successUrl: /                 # Todo
-  unauthorizedUrl: /user/login  # Todo
-mybatis:
-  mapper-locations: classpath*:/mapper/* # Locations of Mapper xml config file.
-  type-handlers-package: com.online.office.mybatisHandler
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 200
+      min-spare: 30
+    connection-timeout: 5000ms
+  servlet:
+    context-path: /office
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/office?characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: 123456
     username: root
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml # Locations of Mapper xml config file.
+  type-handlers-package: com.online.office.mybatisHandler
+  type-aliases-package: com.online.office.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+shiro:
+  loginUrl: /user/login         # Todo
+  successUrl: /                 # Todo
+  unauthorizedUrl: /user/login  # Todo
+
+logging:
+  level:
+    root: info
+    com.online.office.dao: warn

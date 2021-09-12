@@ -47,4 +47,11 @@ public class UserController {
         return "hello";
     }
 
+    @RequestMapping("/logout")
+    public void logout() {
+        Subject currentUser = SecurityUtils.getSubject();
+        if(currentUser.isAuthenticated()) {
+            currentUser.logout();
+        }
+    }
 }
